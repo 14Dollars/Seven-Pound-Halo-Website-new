@@ -375,7 +375,7 @@ const AboutSection = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="aspect-[4/5] bg-brand-gray rounded-2xl overflow-hidden shadow-2xl"
+              className="aspect-video bg-brand-gray rounded-2xl overflow-hidden shadow-2xl"
             >
               <img 
                 src="/Press shot 1.jpg" 
