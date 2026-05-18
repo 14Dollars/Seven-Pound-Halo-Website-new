@@ -198,7 +198,7 @@ const MusicSection = () => {
       <div className="absolute inset-0 z-0">
         <img 
           src="/Abstract 2.jpg" 
-          alt="" 
+          alt="Abstract dark grunge texture" 
           className="w-full h-full object-cover opacity-20 grayscale"
           referrerPolicy="no-referrer"
         />
@@ -267,7 +267,7 @@ const VideoSection = () => {
       <div className="absolute inset-0 z-0">
         <img 
           src="/Insta 4.jpg" 
-          alt="" 
+          alt="Seven Pound Halo guitarist live on stage" 
           className="w-full h-full object-cover opacity-10 grayscale"
           referrerPolicy="no-referrer"
         />
@@ -321,7 +321,7 @@ const ShowsSection = () => {
       <div className="absolute inset-0 z-0">
         <img 
           src="/Press shot 3.jpg" 
-          alt="" 
+          alt="Seven Pound Halo performing in a dark ambient setting" 
           className="w-full h-full object-cover opacity-10 grayscale"
           referrerPolicy="no-referrer"
         />
@@ -467,7 +467,7 @@ const MerchSection = () => {
       <div className="absolute inset-0 z-0">
         <img 
           src="/Inta 1.jpg" 
-          alt="" 
+          alt="Seven Pound Halo band merch backdrop" 
           className="w-full h-full object-cover opacity-10 grayscale"
           referrerPolicy="no-referrer"
         />
