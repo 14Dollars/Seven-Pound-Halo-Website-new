@@ -309,11 +309,59 @@ const VideoSection = () => {
 };
 
 const ShowsSection = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    // Re-initialize Bandsintown widget if it exists
-    if (window.BandsintownWidget) {
-      window.BandsintownWidget.init();
+    if (!containerRef.current) return;
+
+    // Clear any previous initialized elements to ensure a clean slate
+    containerRef.current.innerHTML = "";
+
+    // Create a new anchor widget element with correct properties
+    const anchor = document.createElement("a");
+    anchor.className = "bit-widget-initializer";
+    anchor.setAttribute("data-artist-name", "id_15605163");
+    anchor.setAttribute("data-app-id", "21ca23b5a529a7fe9f81f16c97d90926");
+    anchor.setAttribute("data-display-past-dates", "false");
+    anchor.setAttribute("data-text-color", "#FFFFFF");
+    anchor.setAttribute("data-link-color", "#FFFFFF");
+    anchor.setAttribute("data-background-color", "transparent");
+    anchor.setAttribute("data-display-limit", "10");
+    anchor.setAttribute("data-link-text-color", "#000000");
+
+    containerRef.current.appendChild(anchor);
+
+    // Dynamic initializer for script loading and widget execution
+    const initWidget = () => {
+      if (window.BandsintownWidget) {
+        window.BandsintownWidget.init();
+      }
+    };
+
+    const scriptId = "bandsintown-widget-script";
+    let script = document.getElementById(scriptId) as HTMLScriptElement | null;
+
+    if (!script) {
+      script = document.createElement("script");
+      script.id = scriptId;
+      script.src = "https://widgetv3.bandsintown.com/main.min.js";
+      script.charset = "utf-8";
+      script.async = true;
+      script.onload = initWidget;
+      document.head.appendChild(script);
+    } else {
+      if (window.BandsintownWidget) {
+        initWidget();
+      } else {
+        script.addEventListener("load", initWidget);
+      }
     }
+
+    return () => {
+      if (script) {
+        script.removeEventListener("load", initWidget);
+      }
+    };
   }, []);
 
   return (
@@ -341,17 +389,10 @@ const ShowsSection = () => {
       </div>
 
       <div className="glass-card rounded-2xl overflow-hidden p-4 md:p-8">
-        <a 
-          className="bit-widget-initializer"
-          data-artist-name="id_15605163"
-          data-app-id="21ca23b5a529a7fe9f81f16c97d90926"
-          data-display-past-dates="false"
-          data-text-color="#FFFFFF"
-          data-link-color="#FFFFFF"
-          data-background-color="transparent"
-          data-display-limit="10"
-          data-link-text-color="#000000"
-        ></a>
+        <div 
+          ref={containerRef}
+          className="w-full max-w-full overflow-x-hidden min-h-[300px]"
+        />
       </div>
       
       <div className="mt-12 text-center">
@@ -394,13 +435,13 @@ const AboutSection = () => {
             <h2 className="text-4xl md:text-6xl font-bold uppercase mb-8 leading-[0.9]">The Project</h2>
             <div className="space-y-6 text-lg leading-relaxed font-medium">
               <p>
-                Seven Pound Halo began in Melbourne in 2022, when Max Paul started writing music as a personal passion project after the COVID pandemic. What started in his bedroom quickly became a full band, with Avatar Rotstein on bass and Ben McLaughlin on lead guitar.
+                Seven Pound Halo began in Melbourne in 2022, when Max Paul started writing music as a personal passion project after the COVID pandemic. What started in his bedroom quickly became a full band, with Max Paul, Avatar Rotstein on bass, Ben McLaughlin on lead guitar, and Thomas Kunz on drums.
               </p>
               <p>
                 The band plays an emotionally raw mix of Aussie garage rock, ’90s grunge, UK indie, and alternative psychedelic rock, with synths that cut through the noise just enough to add an extra layer of texture. It’s loud, polished, and built around raw expression that embraces imperfection.
               </p>
               <p>
-                Their live shows are real, high-energy performances that have sold out venues across Melbourne. Seven Pound Halo isn’t trying to fit into a scene—they’re carving out something for themselves, with music that reflects nothing but who they are.
+                Their live shows are real, high-energy performances that have sold out venues across Melbourne. Seven Pound Halo isn’t trying to fit into a scene — they’re carving out something for themselves, with music that reflects nothing but who they are.
               </p>
             </div>
           </motion.div>
@@ -437,6 +478,12 @@ const AboutSection = () => {
               <div className="text-2xl font-bold font-display">GLOBAL REACH</div>
               <p className="text-sm opacity-70 leading-relaxed">
                 Featured across independent radio stations and curated alternative playlists both locally and internationally.
+              </p>
+            </div>
+            <div className="space-y-3">
+              <div className="text-2xl font-bold font-display">DIY UK TOUR</div>
+              <p className="text-sm opacity-70 leading-relaxed">
+                DIY UK tour in December 2025, performing across the UK and building international momentum.
               </p>
             </div>
           </div>
